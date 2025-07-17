@@ -33,18 +33,18 @@ void PWM_LED_Init(void){
 	TIM_Cmd(TIM2, ENABLE);
 }
 
-// void Set_PWMCCR3(uint16_t CCR){
-// 	TIM_SetCompare3(TIM2, CCR);
-// }
-
-// void Set_PWMCCR2(uint16_t CCR){
-// 	TIM_SetCompare2(TIM2, CCR);
-// }
-
-void Set_Servo_Angle(uint8_t Servo_Num, float angle){
-	if(angle > 180) angle = 180;
-	if(angle < 0) angle = 0;
-	uint16_t CCR = ((angle * 2000 / 180) + 500) + 0.5; // Convert angle to CCR value
-	if(Servo_Num == 1) TIM_SetCompare3(TIM2, CCR);
-	else if(Servo_Num == 2) TIM_SetCompare2(TIM2, CCR);
+void Set_PWMServo_Y(uint16_t CCR){
+	TIM_SetCompare3(TIM2, CCR);
 }
+
+void Set_PWMServo_X(uint16_t CCR){
+	TIM_SetCompare2(TIM2, CCR);
+}
+
+// void Set_Servo_Angle(uint8_t Servo_Num, float angle){
+// 	if(angle > 180) angle = 180;
+// 	if(angle < 0) angle = 0;
+// 	uint16_t CCR = ((angle * 2000 / 180) + 500) + 0.5; // Convert angle to CCR value
+// 	if(Servo_Num == 1) TIM_SetCompare3(TIM2, CCR);
+// 	else if(Servo_Num == 2) TIM_SetCompare2(TIM2, CCR);
+// }

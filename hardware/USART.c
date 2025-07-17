@@ -51,7 +51,7 @@ int Serial_Init(void){
 
 void Serial_SendByte(uint8_t DATA){
 	USART_SendData(USART2,DATA);
-	while(USART_GetFlagStatus(USART1,USART_FLAG_TXE)==RESET);
+	while(USART_GetFlagStatus(USART2,USART_FLAG_TXE)==RESET);
 }
 
 void Serial_SendArray(uint8_t *array,uint16_t len){
@@ -108,13 +108,13 @@ void Serial_SendPacket(void){
 }
 
 
-void USART1_IRQHandler(void)
+void USART2_IRQHandler(void)
 {
 	static uint8_t RxState = 0;
 	static uint8_t pRxPacket = 0;
-	if (USART_GetITStatus(USART1, USART_IT_RXNE) == SET)
+	if (USART_GetITStatus(USART2, USART_IT_RXNE) == SET)
 	{
-		uint8_t RxData = USART_ReceiveData(USART1);
+		uint8_t RxData = USART_ReceiveData(USART2);
 
 		if (RxState == 0)
 		{
@@ -142,6 +142,6 @@ void USART1_IRQHandler(void)
 			}
 		}
 
-		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
 	}
 }
